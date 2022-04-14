@@ -21,7 +21,7 @@ properties([
 pipeline {
     agent {
         docker {
-            image 'registryurl'
+            image 'https://hub.docker.com/r/krishna420/reposandeep/tags:latest'
         }
     }
 
@@ -29,8 +29,8 @@ pipeline {
         
         // INSTALL_DIR = '/jenkins'
         FILES_DIR = ''
-        GIT_URL = '@github.build.ge.com/gehc-web/hc-ws-azure-devops.git'
-        GIT_BRANCH = 'master'
+        GIT_URL = 'https://github.com/bpshapur/project_1.git'
+        GIT_BRANCH = 'main'
         VAR1 = "${params.Product_Name}"
         VAR2 = "${params.Product_Version}"
         VAR3 = "${params.Product_Release_Version}"
@@ -60,7 +60,7 @@ pipeline {
         }
         stage('Copying artifact') {
             steps {
-                withCredentials([usernamePassword(credentialsId: '_git-hcws', passwordVariable: 'token', usernameVariable: 'username')]) {
+                withCredentials([usernamePassword(credentialsId: 'suki_git', passwordVariable: 'token', usernameVariable: 'username')]) {
                 script {
                     sh """
                         mkdir -p $INSTALL_DIR && cd $INSTALL_DIR && \
@@ -81,9 +81,8 @@ pipeline {
             steps {
                 script {
                     sh '''
+                        echo "this is validate stage"  
                         
-                        }
-                        fi
                     '''
                 }
             }
@@ -95,7 +94,7 @@ pipeline {
             steps {
                 script {
                     sh '''
-                        cd $INSTALL_DIR/$FILES_DIR
+                        echo "this stage is Build to Prod"
 
                     '''
                 }
