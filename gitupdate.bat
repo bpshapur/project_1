@@ -1,5 +1,5 @@
 #!/bin/bash
-x=date
+x=$(date)
 git add .
 git commit -am "$x"
 git push 
