@@ -25,7 +25,9 @@ pipeline {
                 expression { params.Job_Type == 'docker-build' }
             }
             steps {
-                echo 'building docker.....'
+                echo 'building docker from docker file'
+                cd sandeep
+                docker build -t toolkit:jenkins .
             }
         }
         stage('ec2-build') {
