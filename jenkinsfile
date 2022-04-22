@@ -21,7 +21,7 @@ pipeline {
             }
         }
         stage('docker-build') {
-            when{
+            when {
                 expression { params.Job_Type == 'docker-build' }
             }
             steps {
