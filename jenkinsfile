@@ -26,7 +26,7 @@ pipeline {
             }
             steps {
                 echo 'building docker from docker file'
-                cd sandeep
+                cd sandeep &&
                 docker build -t jenkins .
             }
         }
