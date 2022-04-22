@@ -1,117 +1,39 @@
 properties([
-     parameters([
-        choice(
-             choices: ['validate','Build-Docker', 'Run-ec2-instance'],
-             description: 'Enter job type',
-             name: 'Job_Type'
-            ),
-        choice(
-             choices: ['', '1', '2', '3', '4','5'],
-             description: 'Enter Product Name',
-             name: 'Product_Name'
-            ),
-        choice(
-             choices: ['', '1', '', '3' ],
-             description: 'Enter Product version',
-             name: 'Product_Version'
-            ),
-        ])
+    parameters([
+        choice (
+            choices: ['validate_files','docker-build','ec2-build','azvm-build'],
+            description: 'enter the job to run',
+            name: 'Job_Type'
+        )
+    ])
 ])
 
 pipeline {
-    agent {
-        docker {
-            image 'https://hub.docker.com/r/krishna420/reposandeep/tags:latest'
-        }
-    }
-
-    environment {
-        
-        // INSTALL_DIR = '/jenkins'
-        FILES_DIR = ''
-        GIT_URL = 'https://github.com/bpshapur/project_1.git'
-        GIT_BRANCH = 'main'
-        VAR1 = "${params.Product_Name}"
-        VAR2 = "${params.Product_Version}"
-        VAR3 = "${params.Product_Release_Version}"
-        // PKR_FILE = "pkr-hcws-main.json"
-        
-    }
+    agent any
 
     stages {
-        stage('Input out') {
-            steps {
-                script {
-                    sh """
-                        echo "Installation directory : $INSTALL_DIR \n
-                        File directory             : $FILES_DIR \n
-                        Packer file to be executed : $PKR_FILE \n
-                        Git url                    : $GIT_URL \n
-                        GIT Branch                 : $GIT_BRANCH \n
-                        Build Number               : ${env.BUILD_ID} \n
-                        Job_Type                   : ${Job_Type} \n
-                        Job                        : ${params.Product_Name} \n
-                        Job-Product-version        : ${params.Product_Version} \n
-                        release_ver                : ${params.Product_Release_Version} \n
-                        test1                      : $VAR1 "
-                    """
-                }
-            }
-        }
-        stage('Copying artifact') {
-            steps {
-                withCredentials([usernamePassword(credentialsId: 'suki_git', passwordVariable: 'token', usernameVariable: 'username')]) {
-                script {
-                    sh """
-                        mkdir -p $INSTALL_DIR && cd $INSTALL_DIR && \
-                        git clone -b $GIT_BRANCH "http://${username}:${token}$GIT_URL" && \
-                        pwd && ls -altr && \
-                        cd $FILES_DIR && \
-                        printf "============executing $PKR_FILE=============== "
-                    """
-                }
-            }
-            }
-        }
-
-        stage('Validate') {
+        stage('validate') {
             when {
-                expression { params.Job_Type == 'validate' }
+                expression { params.Job_Type == 'validate_files' }
             }
             steps {
-                script {
-                    sh '''
-                        echo "this is validate stage"  
-                        
-                    '''
-                }
+                echo 'validating file..'
             }
         }
-        stage('Build Docker') {
+        stage('docker-build') {
+            when{
+                expression { params.Job_Type == 'docker-build' }
+            }
+            steps {
+                echo 'building docker.....'
+            }
+        }
+        stage('ec2-build') {
             when {
-                expression { params.Job_Type == 'build to prod' }
+                expression { params.Job_Type == 'ec2-build' }
             }
             steps {
-                script {
-                    sh '''
-                        echo "this stage is Build to Prod"
-
-                    '''
-                }
-            }
-        }
-    }
-    post {
-
-        
-        always {
-            cleanWs()
-            dir("${workspace}@tmp") {
-                deleteDir()
-            }
-        
-            dir("${workspace}@script") {
-                deleteDir()
+                echo 'building ec2 instance....'
             }
         }
     }
