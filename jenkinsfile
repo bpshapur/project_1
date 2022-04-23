@@ -39,7 +39,13 @@ pipeline {
                 expression { params.Job_Type == 'ec2-build' }
             }
             steps {
+                sh '''
+                
                 echo 'building ec2 instance....'
+                cd santosh &&
+                sh buildec2.sh
+
+                '''
             }
         }
     }
