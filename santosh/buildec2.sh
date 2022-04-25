@@ -1,4 +1,4 @@
-aws ec2 --profile default run-instances \
+aws ec2  run-instances \
     --image-id ami-0e472ba40eb589f49 \
     --instance-type t2.micro \
     --key-name dev_workstation_1 \
