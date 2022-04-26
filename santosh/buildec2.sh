@@ -4,4 +4,4 @@
 /    --key-name dev_workstation_1 \
 /    --region us-east-1
 
-aws ec2 descibe-instances
+aws ec2 describe-instances
