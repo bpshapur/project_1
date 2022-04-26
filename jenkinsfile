@@ -50,20 +50,20 @@ pipeline {
                 '''
             }
         }
-        stage('custom_script') {
-            when {
-                expression { params.Job_Type == 'test_custom_scipt' }
-            }
-            steps {
-                sh '''
+        // stage('custom_script') {
+        //     when {
+        //         expression { params.Job_Type == 'test_custom_scipt' }
+        //     }
+        //     steps {
+        //         sh '''
                 
-                ssh <username>@<machineIP>
-                sudo su
-                git clone <project-1>
-                sh project_1/giriraj/config.sh
+        //         ssh <username>@<machineIP>
+        //         sudo suconfig.sh
+        //         git clone <project-1>
+        //         sh project_1/giriraj/config.sh
                                
-                '''
-            }
-        }
+        //         '''
+        //     }
+        // }
     }
 }
