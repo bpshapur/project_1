@@ -43,7 +43,7 @@ pipeline {
                 
                 echo 'building ec2 instance....'
                 cd santosh &&
-                sh buildec2.sh
+                aws ec2 describe-instances
 
                 '''
             }
