@@ -41,9 +41,11 @@ pipeline {
             steps {
                 sh '''
                 
-                echo 'building ec2 instance....'
+                echo 'describing ec2 instance....'
                 cd santosh &&
-                aws ec2 describe-instances
+                ls -ltr
+                pwd
+                sh buildec2.sh
 
                 '''
             }
