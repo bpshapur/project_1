@@ -3,4 +3,4 @@ aws ec2  run-instances \
      --instance-type t2.micro \
      --key-name dev_workstation_1 \
      --region us-east-1 \
-     --tag-specifications ResourceType=instance,Tags=[{Key=Name,Value=demo-jenkins-1}]
+     --tag-specifications 'ResourceType=instance,Tags=[{Key=Name,Value=demo-jenkins-1}]'
