@@ -4,9 +4,16 @@ properties([
             choices: ['','validate_files','docker-build','ec2-build','test_custom_scipt'],
             description: 'enter the job to run',
             name: 'Job_Type'
+        ),
+        choice (
+            choices: ['','v1','v2', 'v3'],
+            description: 'Choose your version',
+            name: 'versions'
         )
     ])
 ])
+
+
 
 pipeline {
     agent any
@@ -50,20 +57,20 @@ pipeline {
                 '''
             }
         }
-        // stage('custom_script') {
-        //     when {
-        //         expression { params.Job_Type == 'test_custom_scipt' }
-        //     }
-        //     steps {
-        //         sh '''
+        stage('custom_script') {
+            when {
+                expression { params.Job_Type == 'test_custom_scipt' }
+            }
+            steps {
+                sh '''
                 
-        //         ssh <username>@<machineIP>
-        //         sudo suconfig.sh
-        //         git clone <project-1>
-        //         sh project_1/giriraj/config.sh
+                ssh -i "dev_workstation_1.pem" ec2-user@ec2-3-92-189-23.compute-1.amazonaws.com
+                sudo suconfig.sh
+                git clone <project-1>
+                sh project_1/giriraj/config.sh
                                
-        //         '''
-        //     }
-        // }
+                '''
+            }
+        }
     }
 }
