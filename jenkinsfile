@@ -63,12 +63,12 @@ pipeline {
             }
             steps {
                 sh '''
-                
-                ssh -i "dev_workstation_1.pem" ec2-user@ec2-3-92-189-23.compute-1.amazonaws.com
-                sudo suconfig.sh
-                git clone <project-1>
-                sh project_1/giriraj/config.sh
-                               
+                echo 'running custom script....'
+                cd giriraj &&
+                ls -ltr
+                pwd
+                sh ssh_ec2.sh
+                                             
                 '''
             }
         }
