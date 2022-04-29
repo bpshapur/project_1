@@ -1,7 +1,7 @@
 properties([
     parameters([
         choice (
-            choices: ['','validate_files','docker-build','ec2-build','Run_custom_scipt'],
+            choices: ['', 'validate_files', 'docker-build', 'ec2-build', 'pull-ec2-list', 'Run_custom_scipt'],
             description: 'enter the job to run',
             name: 'Job_Type'
         ),
@@ -56,6 +56,19 @@ pipeline {
 
                 '''
             }
+
+        stage('get ec2 InstancesId') {
+            when {
+                expression { params.Job_Type == 'pull-ec2-list' }
+            }
+            steps {
+                sh '''
+                ls -ltr
+                pwd
+                sh jyoti/pullec2instances.sh
+
+                '''
+            }
         }
         stage('custom_script') {
             when {
@@ -63,8 +76,7 @@ pipeline {
             }
             steps {
                 sh '''
-                pwd
-                ls -ltr
+                echo "*******RUNNING CUSTOM SCRIPT BLK**********"
                 chmod 400 giriraj/dev_workstation_2.pem
                 ssh -o "StrictHostKeyChecking no" -i giriraj/dev_workstation_2.pem ubuntu@52.91.21.237 'bash -s' < giriraj/config.sh            
                 '''
