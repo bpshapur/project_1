@@ -56,7 +56,7 @@ pipeline {
 
                 '''
             }
-
+        }
         stage('get ec2 InstancesId') {
             when {
                 expression { params.Job_Type == 'pull-ec2-list' }
