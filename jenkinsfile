@@ -65,7 +65,7 @@ pipeline {
                 sh '''
                 pwd
                 ls -ltr
-                ssh -i dev_workstation_2.pem ec2user@52.91.21.237 'bash -s' < config.sh
+                ssh -i giriraj/dev_workstation_2.pem ec2user@52.91.21.237 'bash -s' < giriraj/config.sh
                                         
                 '''
             }
