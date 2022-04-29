@@ -1,7 +1,7 @@
 properties([
     parameters([
         choice (
-            choices: ['','validate_files','docker-build','ec2-build','test_custom_scipt'],
+            choices: ['','validate_files','docker-build','ec2-build','Run_custom_scipt'],
             description: 'enter the job to run',
             name: 'Job_Type'
         ),
@@ -59,7 +59,7 @@ pipeline {
         }
         stage('custom_script') {
             when {
-                expression { params.Job_Type == 'test_custom_scipt' }
+                expression { params.Job_Type == 'Run_custom_scipt' }
             }
             steps {
                 sh '''
