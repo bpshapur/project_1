@@ -63,12 +63,9 @@ pipeline {
             }
             steps {
                 sh '''
-                echo 'running custom script....'
-                cd giriraj &&
-                ls -ltr
                 pwd
-                sh ssh_ec2.sh
-                                             
+                ssh -i dev_workstation_2.pem ec2user@52.91.21.237 'bash -s' < config.sh
+                                        
                 '''
             }
         }
