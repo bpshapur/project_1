@@ -66,7 +66,7 @@ pipeline {
                 pwd
                 ls -ltr
                 chmod 400 giriraj/dev_workstation_2.pem
-                ssh -o "StrictHostKeyChecking no" -i giriraj/dev_workstation_2.pem ec2user@52.91.21.237 'bash -s' < giriraj/config.sh            
+                ssh -o "StrictHostKeyChecking no" -i giriraj/dev_workstation_2.pem ubuntu@52.91.21.237 'bash -s' < giriraj/config.sh            
                 '''
             }
         }
