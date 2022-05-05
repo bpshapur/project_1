@@ -82,7 +82,7 @@ pipeline {
                 sh '''
                 echo "*******RUNNING CUSTOM SCRIPT BLK**********"
                 chmod 400 giriraj/dev_workstation_2.pem
-                ssh -o "StrictHostKeyChecking no" -i giriraj/dev_workstation_2.pem ubuntu@54.236.51.119 'bash -s' < giriraj/config.sh            
+                ssh -o "StrictHostKeyChecking no" -i giriraj/dev_workstation_2.pem ubuntu@34.201.32.42 'bash -s' < giriraj/config.sh            
                 '''
             }
         }
