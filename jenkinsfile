@@ -37,6 +37,10 @@ pipeline {
                 echo 'building docker from docker file'
                 cd sandeep &&
                 docker build -t jenkins .
+                // below code to push docker to respective registry
+                // docker login <registry_url>
+                // docker tag registry_url
+                // docker push
 
                 '''
             }
@@ -78,7 +82,7 @@ pipeline {
                 sh '''
                 echo "*******RUNNING CUSTOM SCRIPT BLK**********"
                 chmod 400 giriraj/dev_workstation_2.pem
-                ssh -o "StrictHostKeyChecking no" -i giriraj/dev_workstation_2.pem ubuntu@52.91.21.237 'bash -s' < giriraj/config.sh            
+                ssh -o "StrictHostKeyChecking no" -i giriraj/dev_workstation_2.pem ubuntu@54.236.51.119 'bash -s' < giriraj/config.sh            
                 '''
             }
         }
